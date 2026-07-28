@@ -1,0 +1,18 @@
+<h2>Session history</h2>
+
+{% if request.user.is_authenticated %}
+<p>Showing session for: <strong>{{ request.user.username }}</strong></p>
+{% endif %}
+
+{% for session in sessions %}
+
+<p>
+    {{ session.duration }} minutes -
+    {{ session.completed_at }}
+</p>
+
+{% empty %}
+
+<p>No sessions yet.</p>
+
+{% endfor %}

@@ -3,6 +3,8 @@ const startPauseBtn = document.getElementById("startPause");
 const resetBtn = document.getElementById("reset");
 const tabs = document.querySelectorAll(".tab");
 
+console.log("NEW TIMER.JS");
+
 let timer = null;
 
 let currentTime = 1500;
@@ -42,6 +44,22 @@ function startTimer() {
 
             console.log("Session complete");
 
+            console.log("Before fetch");
+
+            fetch("/save-session/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `duration=${Math.round(defaultTime / 60)}`,
+            })
+            .then(response=> response.json())
+            .then(data => {
+                console.log(data);
+            });
+
+            console.log("After fetch");
         }
 
     }, 1000);
@@ -116,3 +134,30 @@ tabs.forEach(tab => {
 
 
 updateDisplay();
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+
+        const cookies = document.cookie.split(";")
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+
+}
