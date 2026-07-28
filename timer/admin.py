@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import PomodoroSession
 
-# Register your models here.
+@admin.register(PomodoroSession)
+class PomodoroSessionAdmin(admin.ModelAdmin):
+    list_display = ("id", "duration", "is_completed", "completed_at")
