@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+
+    <h1>🍅 Pomodoro Clocker</h1>
+
+    <div class="tabs">
+        <button class="tab active" data-time="1500">Pomodoro</button>
+        <button class="tab" data-time="300">Short Break</button>
+        <button class="tab" data-time="900">Long Break</button>
+    </div>
+
+    <div id="timer" class="timer">
+        25:00
+    </div>
+
+    <div class="buttons">
+        <button id="startPause">Start</button>
+        <button id="reset">Reset</button>
+    </div>
+
+    <div class="stats">
+        <div class="card">
+            <h3>Pomodoros Today</h3>
+            <p>6</p>
+        </div>
+
+        <div class="card">
+            <h3>Focus Time</h3>
+            <p>2h 30m</p>
+        </div>
+
+        <div class="card">
+            <h3>Current Streak</h3>
+            <p>5 Days</p>
+        </div>
+
+        <div class="card">
+            <h3>Best Streak</h3>
+            <p>12 Days</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
