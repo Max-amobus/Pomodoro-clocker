@@ -12,7 +12,7 @@ let defaultTime = 1500;
 
 let running = false;
 
-
+let currentSessionType = "pomodoro";
 
 function updateDisplay() {
 
@@ -46,13 +46,16 @@ function startTimer() {
 
             console.log("Before fetch");
 
+            console.log("Duration:", defaultTime);
+            console.log("Session type:", currentSessionType);
+
             fetch("/save-session/", {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": getCookie("csrftoken"),
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
-                body: `duration=${Math.round(defaultTime / 60)}`,
+                body: `duration=${Math.round(defaultTime / 60)}&session_type=${currentSessionType}`,
             })
             .then(response=> response.json())
             .then(data => {
@@ -123,6 +126,16 @@ tabs.forEach(tab => {
         tab.classList.add("active");
 
         defaultTime = Number(tab.dataset.time);
+
+        if (defaultTime === 1500) {
+            currentSessionType = "pomodoro";
+        }
+        else if (defaultTime === 300) {
+            currentSessionType = "short";
+        }
+        else {
+            currentSessionType = "long";
+        }
 
         currentTime = defaultTime;
 

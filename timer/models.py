@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class PomodoroSession(models.Model):
+
+    SESSION_TYPES = [
+        ("pomodoro", "Pomodoro"),
+        ("short", "Short Break"),
+        ("long", "Long Break"),
+    ]
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -9,9 +16,15 @@ class PomodoroSession(models.Model):
         blank=True,
     )
 
-    duration = models.PositiveIntegerField()
-    is_completed = models.BooleanField(default=True)
-    completed_at = models.DateTimeField(auto_now_add=True)
+    session_type = models.CharField(
+        max_length=20,
+        choices=SESSION_TYPES,
+        default="pomodoro",
+    )
+
+    duration_minutes = models.PositiveIntegerField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.duration} minutes"
+        return f"{self.user} - {self.session_type}"

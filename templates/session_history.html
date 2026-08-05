@@ -7,8 +7,8 @@
 {% for session in sessions %}
 
 <p>
-    {{ session.duration }} minutes -
-    {{ session.completed_at }}
+    {{ session.duration_minutes }} minutes -
+    {{ session.created_at }}
 </p>
 
 {% empty %}

@@ -3,4 +3,4 @@ from .models import PomodoroSession
 
 @admin.register(PomodoroSession)
 class PomodoroSessionAdmin(admin.ModelAdmin):
-    list_display = ("id", "duration", "is_completed", "completed_at")
+    list_display = ("id", "user", "session_type", "duration_minutes", "created_at")
