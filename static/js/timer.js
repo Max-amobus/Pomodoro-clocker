@@ -44,11 +44,6 @@ function startTimer() {
 
             console.log("Session complete");
 
-            console.log("Before fetch");
-
-            console.log("Duration:", defaultTime);
-            console.log("Session type:", currentSessionType);
-
             fetch("/save-session/", {
                 method: "POST",
                 headers: {
@@ -62,7 +57,6 @@ function startTimer() {
                 console.log(data);
             });
 
-            console.log("After fetch");
         }
 
     }, 1000);

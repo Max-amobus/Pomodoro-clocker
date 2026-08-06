@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from .models import CustomUser
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -9,7 +9,7 @@ class RegisterForm(forms.ModelForm):
     )
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'email', 'password']
 
     def clean_password2(self):
