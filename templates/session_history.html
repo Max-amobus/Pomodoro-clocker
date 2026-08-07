@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Session History | Pomodoro{% endblock %}
+
+{% block content %}
+<section class="page-heading compact-heading">
+    <div>
+        <p class="eyebrow">Session History</p>
+        <h1>Track your completed sessions.</h1>
+        <p class="heading-subtitle">A clean timeline of your recent focus blocks and breaks.</p>
+    </div>
+</section>
+
+<section class="panel history-panel">
+    <div class="history-header">
+        <div><span class="panel-kicker">May 25, 2025</span><h2>Today's sessions</h2></div>
+        <span class="history-total">6 sessions</span>
+    </div>
+
+    <div class="history-list">
+        <div class="history-row">
+            <div class="session-type"><span class="session-emoji tomato">🍅</span><strong>Focus</strong></div>
+            <span>10:00 AM</span><strong>25 min</strong>
+        </div>
+        <div class="history-row">
+            <div class="session-type"><span class="session-emoji cup">☕</span><strong>Short Break</strong></div>
+            <span>10:25 AM</span><strong>5 min</strong>
+        </div>
+        <div class="history-row">
+            <div class="session-type"><span class="session-emoji tomato">🍅</span><strong>Focus</strong></div>
+            <span>10:30 AM</span><strong>25 min</strong>
+        </div>
+        <div class="history-row">
+            <div class="session-type"><span class="session-emoji cup">☕</span><strong>Short Break</strong></div>
+            <span>10:55 AM</span><strong>5 min</strong>
+        </div>
+        <div class="history-row">
+            <div class="session-type"><span class="session-emoji tomato">🍅</span><strong>Focus</strong></div>
+            <span>11:00 AM</span><strong>25 min</strong>
+        </div>
+        <div class="history-row">
+            <div class="session-type"><span class="session-emoji tomato">🍅</span><strong>Focus</strong></div>
+            <span>11:30 AM</span><strong>25 min</strong>
+        </div>
+        <div class="history-row">
+            <div class="session-type"><span class="session-emoji cup">☕</span><strong>Short Break</strong></div>
+            <span>11:55 AM</span><strong>5 min</strong>
+        </div>
+    </div>
+</section>
+{% endblock %}

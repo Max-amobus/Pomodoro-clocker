@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings | Pomodoro{% endblock %}
+
+{% block content %}
+<section class="page-heading compact-heading">
+    <div>
+        <p class="eyebrow">Settings</p>
+        <h1>Customize your workspace.</h1>
+        <p class="heading-subtitle">Visual settings are ready for your future preferences.</p>
+    </div>
+</section>
+
+<section class="panel settings-panel">
+    <div class="settings-section">
+        <div>
+            <span class="panel-kicker">Timer defaults</span>
+            <h2>Session durations</h2>
+        </div>
+        <div class="settings-grid">
+            <label class="setting-field"><span>Pomodoro</span><input type="number" value="25" min="1"><em>minutes</em></label>
+            <label class="setting-field"><span>Short break</span><input type="number" value="5" min="1"><em>minutes</em></label>
+            <label class="setting-field"><span>Long break</span><input type="number" value="15" min="1"><em>minutes</em></label>
+        </div>
+    </div>
+
+    <div class="settings-section">
+        <div>
+            <span class="panel-kicker">Preferences</span>
+            <h2>Focus experience</h2>
+        </div>
+        <label class="toggle-row"><span><strong>Auto-start next session</strong><small>Keep the flow going when a timer finishes.</small></span><input type="checkbox"><span class="fake-toggle"></span></label>
+        <label class="toggle-row"><span><strong>Sound notifications</strong><small>Play a short alert when a session ends.</small></span><input type="checkbox" checked><span class="fake-toggle"></span></label>
+    </div>
+</section>
+{% endblock %}

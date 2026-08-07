@@ -1,110 +1,39 @@
-# Pomodoro Clocker
+# Pomodoro Clocker — UI Redesign
 
-## About
+This version keeps the existing Pomodoro timer JavaScript logic and redesigns the interface to match the provided reference style: clean white cards, soft gray background, red accents, top navigation, dashboard analytics, session history, login and registration screens, and a settings screen.
 
-Pomodoro Clocker is a web application designed to improve personal productivity using the Pomodoro Technique.
+## What was changed
 
-The application allows users to manage work and break sessions, customize timer settings, track productivity statistics, and visualize performance through interactive charts.
+- Redesigned the main dashboard UI.
+- Kept `static/js/timer.js` as the timer logic and preserved its existing DOM hooks.
+- Added a responsive layout for desktop and mobile.
+- Added visual pages for:
+  - Login
+  - Register
+  - Dashboard / Analytics
+  - Session History
+  - Settings
+- Added navigation between the visual pages.
+- The existing timer still supports Pomodoro, Short Break, Long Break, Start/Pause, and Reset.
 
-The project is developed as a team project using Django and modern web technologies.
+## Run locally
 
----
+```bash
+python -m venv venv
 
-## Main Features
+# Windows
+venv\Scripts\activate
 
-### Timer
-- Start Pomodoro session
-- Pause session
-- Reset timer
-- Short break timer
-- Long break timer
-- Automatic cycle switching
+# macOS / Linux
+source venv/bin/activate
 
-### User Settings
-- Work session duration
-- Short break duration
-- Long break duration
-- Number of cycles before long break
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
 
-### User Management
-- Registration
-- Login
-- Logout
+Open `http://127.0.0.1:8000/` in a browser.
 
-### Statistics
-- Completed Pomodoro sessions
-- Daily productivity statistics
-- Weekly productivity statistics
-- Most productive day
+## Important note
 
-### Analytics
-- Dashboard
-- Interactive charts
-- Productivity tracking
-
-### PWA Support
-- Installable web application
-- Offline support for basic functionality
-- App-like user experience
-
----
-
-## Technologies
-
-### Backend
-- Python
-- Django
-
-### Frontend
-- HTML
-- CSS
-- JavaScript
-
-### Database
-- SQLite
-
-### Analytics
-- Chart.js
-
-### Additional
-- PWA (Progressive Web App)
-
----
-
-## Team Roles
-
-### Frontend Developer
-Responsible for:
-- UI/UX
-- HTML/CSS
-- Responsive Design
-- Page Layouts
-
-### Backend Developer
-Responsible for:
-- Django
-- Database
-- Authentication
-- API Development
-
-### Team Lead / Analytics Developer
-Responsible for:
-- Project Organization
-- GitHub Management
-- Trello Management
-- Statistics Module
-- Dashboard
-- PWA Integration
-- Documentation
-
----
-
-## Development Status
-
-Project is currently in planning stage.
-
----
-
-## License
-
-Educational Project
+This redesign intentionally does not introduce new authentication or analytics business logic. The Login, Register, History, and Settings screens are visual UI templates. The existing Pomodoro timer logic remains in `static/js/timer.js`.

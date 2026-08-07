@@ -1,21 +1,44 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Clocker</title>
+    <meta name="theme-color" content="#ff4d57">
+    <title>{% block title %}Pomodoro{% endblock %}</title>
 
     <link rel="manifest" href="{% static 'manifest.json' %}">
-
     <link rel="stylesheet" href="{% static 'css/timer.css' %}">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
-    {% block content %}
-    {% endblock %}
+<header class="topbar">
+    <a class="brand" href="{% url 'home' %}" aria-label="Pomodoro home">
+        <span class="brand-mark" aria-hidden="true">🍅</span>
+        <span class="brand-name">Pomodoro</span>
+    </a>
 
-    <script src="{% static 'js/timer.js' %}"></script>
-    <script src="{% static 'js/app.js' %}"></script>
+    <nav class="topnav" aria-label="Primary navigation">
+        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
+            <span class="nav-icon" aria-hidden="true">▥</span>
+            Stats
+        </a>
+        <a class="nav-link {% if '/history/' in request.path %}active{% endif %}" href="{% url 'session_history' %}">
+            <span class="nav-icon" aria-hidden="true">☷</span>
+            History
+        </a>
+        <a class="nav-link {% if '/settings/' in request.path %}active{% endif %}" href="{% url 'settings' %}">
+            <span class="nav-icon" aria-hidden="true">⚙</span>
+            Settings
+        </a>
+    </nav>
+</header>
+
+<main class="page-shell">
+    {% block content %}{% endblock %}
+</main>
+
+<script src="{% static 'js/app.js' %}"></script>
+{% block extra_js %}{% endblock %}
 </body>
 </html>

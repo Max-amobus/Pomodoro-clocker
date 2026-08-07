@@ -117,8 +117,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
+# Static files are stored in the project-level static/ directory.
+# This makes Django's development server find timer.css and timer.js.
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+# Used when collecting static files for deployment.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
