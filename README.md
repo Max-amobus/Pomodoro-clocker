@@ -1,110 +1,39 @@
 # Pomodoro Clocker
 
-## About
+A full-stack Pomodoro timer web application built with Django and vanilla JavaScript. It helps users maintain focus using the Pomodoro technique, track their productivity analytics, and customize their workflow.
 
-Pomodoro Clocker is a web application designed to improve personal productivity using the Pomodoro Technique.
+## Features
 
-The application allows users to manage work and break sessions, customize timer settings, track productivity statistics, and visualize performance through interactive charts.
+- **User Authentication:** Registration, login, and secure sessions.
+- **Guest Mode:** Unauthenticated users can use the timer, with sessions temporarily saved in the browser's LocalStorage.
+- **Focus Timer:** Pomodoro, Short Break, and Long Break modes.
+- **Customizable Workspace:** Users can change timer durations, toggle auto-start for consecutive sessions, and enable sound notifications.
+- **Analytics Dashboard:** Visual charts and statistics tracking total focus time, completed sessions, and active days.
+- **Session History:** A detailed log of all past focus sessions and breaks.
+- **PWA Support:** Installable as a standalone application on desktop and mobile devices.
 
-The project is developed as a team project using Django and modern web technologies.
+## Tech Stack
 
----
+- **Backend:** Python, Django, SQLite
+- **Frontend:** HTML, CSS, JavaScript (Vanilla)
+- **Architecture:** MVT (Model-View-Template) with asynchronous Fetch API calls for timer data.
 
-## Main Features
+## Run locally
 
-### Timer
-- Start Pomodoro session
-- Pause session
-- Reset timer
-- Short break timer
-- Long break timer
-- Automatic cycle switching
+```bash
+# Create a virtual environment
+python -m venv venv
 
-### User Settings
-- Work session duration
-- Short break duration
-- Long break duration
-- Number of cycles before long break
+# Activate it (Windows)
+venv\Scripts\activate
+# Activate it (macOS / Linux)
+source venv/bin/activate
 
-### User Management
-- Registration
-- Login
-- Logout
+# Install dependencies
+pip install -r requirements.txt
 
-### Statistics
-- Completed Pomodoro sessions
-- Daily productivity statistics
-- Weekly productivity statistics
-- Most productive day
+# Apply database migrations
+python manage.py migrate
 
-### Analytics
-- Dashboard
-- Interactive charts
-- Productivity tracking
-
-### PWA Support
-- Installable web application
-- Offline support for basic functionality
-- App-like user experience
-
----
-
-## Technologies
-
-### Backend
-- Python
-- Django
-
-### Frontend
-- HTML
-- CSS
-- JavaScript
-
-### Database
-- SQLite
-
-### Analytics
-- Chart.js
-
-### Additional
-- PWA (Progressive Web App)
-
----
-
-## Team Roles
-
-### Frontend Developer
-Responsible for:
-- UI/UX
-- HTML/CSS
-- Responsive Design
-- Page Layouts
-
-### Backend Developer
-Responsible for:
-- Django
-- Database
-- Authentication
-- API Development
-
-### Team Lead / Analytics Developer
-Responsible for:
-- Project Organization
-- GitHub Management
-- Trello Management
-- Statistics Module
-- Dashboard
-- PWA Integration
-- Documentation
-
----
-
-## Development Status
-
-Project is currently in planning stage.
-
----
-
-## License
-
-Educational Project
+# Run the development server
+python manage.py runserver

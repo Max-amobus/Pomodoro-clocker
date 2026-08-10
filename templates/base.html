@@ -1,58 +1,60 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro</title>
+    <meta name="theme-color" content="#ff4d57">
+    <title>{% block title %}Pomodoro{% endblock %}</title>
 
-    <link rel="stylesheet" href="../../static/css/timer.css">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <link rel="stylesheet" href="{% static 'css/timer.css' %}">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
-<div class="container">
+<header class="topbar">
+    <a class="brand" href="{% url 'home' %}" aria-label="Pomodoro home">
+        <span class="brand-mark" aria-hidden="true">🍅</span>
+        <span class="brand-name">Pomodoro</span>
+    </a>
 
-    <h1>🍅 Pomodoro Clocker</h1>
+    <nav class="topnav" aria-label="Primary navigation">
+        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
+            <span class="nav-icon" aria-hidden="true">▥</span>
+            Stats
+        </a>
+        <a class="nav-link {% if '/session-history/' in request.path %}active{% endif %}" href="{% url 'session_history' %}">
+            <span class="nav-icon" aria-hidden="true">☷</span>
+            History
+        </a>
+        <a class="nav-link {% if '/settings/' in request.path %}active{% endif %}" href="{% url 'settings' %}">
+            <span class="nav-icon" aria-hidden="true">⚙</span>
+            Settings
+        </a>
+    </nav>
+</header>
 
-    <div class="tabs">
-        <button class="tab active" data-time="1500">Pomodoro</button>
-        <button class="tab" data-time="300">Short Break</button>
-        <button class="tab" data-time="900">Long Break</button>
-    </div>
+<main class="page-shell">
+    {% block content %}{% endblock %}
+</main>
 
-    <div id="timer" class="timer">
-        25:00
-    </div>
+<script src="{% static 'js/app.js' %}"></script>
+{% block extra_js %}
 
-    <div class="buttons">
-        <button id="startPause">Start</button>
-        <button id="reset">Reset</button>
-    </div>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('ServiceWorker успішно зареєстровано. Scope:', registration.scope);
+                })
+                .catch(error => {
+                    console.error('Помилка реєстрації ServiceWorker:', error);
+                });
+        });
+    }
+</script>
 
-    <div class="stats">
-        <div class="card">
-            <h3>Pomodoros Today</h3>
-            <p>6</p>
-        </div>
-
-        <div class="card">
-            <h3>Focus Time</h3>
-            <p>2h 30m</p>
-        </div>
-
-        <div class="card">
-            <h3>Current Streak</h3>
-            <p>5 Days</p>
-        </div>
-
-        <div class="card">
-            <h3>Best Streak</h3>
-            <p>12 Days</p>
-        </div>
-    </div>
-
-</div>
-
-<script src="../../static/js/timer.js"></script>
-
+{% endblock %}
 </body>
 </html>

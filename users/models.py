@@ -17,6 +17,9 @@ class UserSettings(models.Model):
     short_break = models.PositiveIntegerField(default=5)
     long_break = models.PositiveIntegerField(default=15)
 
+    auto_start = models.BooleanField(default=False)
+    sound_enabled = models.BooleanField(default=True)
+
     class Meta:
         verbose_name = "User Settings"
         verbose_name_plural = "user settings"

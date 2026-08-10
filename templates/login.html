@@ -1,23 +1,55 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h2>Login</h2>
+{% block title %}Login | Pomodoro{% endblock %}
+{% block body_class %}auth-page{% endblock %}
 
-<form method="post">
-    {% csrf_token %}
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-card">
+        <div class="auth-logo"><span class="brand-mark">🍅</span> Pomodoro</div>
+        <h1>Welcome Back</h1>
+        <p class="auth-subtitle">Log in to continue your focus journey</p>
 
-    {{ form.as_p }}
 
-    <button type="submit">Login</button>
-</form>
 
-</body>
-</html>
+                <!-- Вивід глобальних повідомлень (наприклад, невірний пароль при логіні) -->
+        {% if messages %}
+            <div class="messages" style="color: red; margin-bottom: 15px;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Вивід помилок самої форми (наприклад, користувач вже існує, або паролі не збіглися) -->
+        {% if form.errors %}
+            <div class="form-errors" style="color: red; margin-bottom: 15px;">
+                {{ form.non_field_errors }}
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+
+        <form class="auth-form" action="" method="post">
+            {% csrf_token %}
+            <label>
+                <span>Username</span>
+                <input type="text" name="username" placeholder="Your username">
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="password" placeholder="Enter your password">
+            </label>
+            <button class="primary-button" type="submit">Log In</button>
+        </form>
+
+    <p class="auth-switch">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+    </div>
+</section>
+{% endblock %}

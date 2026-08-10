@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings | Pomodoro{% endblock %}
+
+{% block content %}
+<section class="page-heading compact-heading">
+    <div>
+        <p class="eyebrow">Settings</p>
+        <h1>Customize your workspace.</h1>
+        <p class="heading-subtitle">Visual settings are ready for your future preferences.</p>
+    </div>
+</section>
+
+
+{% if messages %}
+    <div style="color: #28a745; margin-bottom: 20px; font-weight: bold;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+<form method="post" action="">
+    {% csrf_token %}
+    <section class="panel settings-panel">
+        <div class="settings-section">
+            <div>
+                <span class="panel-kicker">Timer defaults</span>
+                <h2>Session durations</h2>
+            </div>
+            <div class="settings-grid">
+                <label class="setting-field">
+                    <span>Pomodoro</span>
+                    <input type="number" name="pomodoro_time" value="{{ settings.pomodoro_time }}" min="1">
+                    <em>minutes</em>
+                </label>
+                <label class="setting-field">
+                    <span>Short break</span>
+                    <input type="number" name="short_break" value="{{ settings.short_break }}" min="1">
+                    <em>minutes</em>
+                </label>
+                <label class="setting-field">
+                    <span>Long break</span>
+                    <input type="number" name="long_break" value="{{ settings.long_break }}" min="1">
+                    <em>minutes</em>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div>
+                <span class="panel-kicker">Preferences</span>
+                <h2>Focus experience</h2>
+            </div>
+            <label class="toggle-row">
+                <span><strong>Auto-start next session</strong><small>Keep the flow going when a timer finishes.</small></span>
+                <input type="checkbox" name="auto_start" {% if settings.auto_start %}checked{% endif %}>
+                <span class="fake-toggle"></span>
+            </label>
+            <label class="toggle-row">
+                <span><strong>Sound notifications</strong><small>Play a short alert when a session ends.</small></span>
+                <input type="checkbox" name="sound_enabled" {% if settings.sound_enabled %}checked{% endif %}>
+                <span class="fake-toggle"></span>
+            </label>
+        </div>
+
+
+        <!-- ОНОВЛЕНИЙ БЛОК КНОПОК -->
+        <div style="padding-top: 20px; margin-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 15px;">
+            <!-- Кнопка виходу (звертається до прихованої форми за межами цього блоку) -->
+            <button type="submit" form="logout-form" style="padding: 10px 20px; background-color: #ffffff; color: #ef4444; border: 1px solid #fca5a5; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.backgroundColor='#fef2f2'" onmouseout="this.style.backgroundColor='#ffffff'">
+                Log Out
+            </button>
+            <!-- Кнопка збереження (зберігає налаштування) -->
+            <button type="submit" class="primary-button">Save Settings</button>
+
+        </div>
+
+
+    </section>
+</form>
+<!-- ПРИХОВАНА ФОРМА ДЛЯ ВИХОДУ -->
+<form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+    {% csrf_token %}
+</form>
+{% endblock %}

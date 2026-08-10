@@ -1,18 +1,40 @@
-<h2>Session history</h2>
+{% extends 'base.html' %}
 
-{% if request.user.is_authenticated %}
-<p>Showing session for: <strong>{{ request.user.username }}</strong></p>
-{% endif %}
+{% block title %}Session History | Pomodoro{% endblock %}
 
-{% for session in sessions %}
+{% block content %}
+<section class="page-heading compact-heading">
+    <div>
+        <p class="eyebrow">Session History</p>
+        <h1>Track your completed sessions.</h1>
+        {% if request.user.is_authenticated %}
+            <p class="heading-subtitle">Showing sessions for: <strong>{{ request.user.username }}</strong></p>
+        {% else %}
+            <p class="heading-subtitle">A clean timeline of your recent focus blocks and breaks.</p>
+        {% endif %}
+    </div>
+</section>
 
-<p>
-    {{ session.duration_minutes }} minutes -
-    {{ session.created_at }}
-</p>
+<section class="panel history-panel">
+    <div class="history-header">
+        <div><h2>Your sessions</h2></div>
+    </div>
 
-{% empty %}
-
-<p>No sessions yet.</p>
-
-{% endfor %}
+    <div class="history-list">
+    {% for session in sessions %}
+        <div class="history-row">
+            <div class="session-type">
+                <span class="session-emoji tomato">🍅</span>
+                <strong>{{ session.session_type|title }}</strong>
+            </div>
+            <span>{{ session.created_at|date:"M d, Y, H:i" }}</span>
+            <strong>{{ session.duration_minutes }} min</strong>
+        </div>
+    {% empty %}
+        <div class="history-row">
+            <p>No sessions yet.</p>
+        </div>
+    {% endfor %}
+</div>
+</section>
+{% endblock %}

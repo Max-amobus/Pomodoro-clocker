@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | Pomodoro{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Dashboard / Analytics</p>
+        <h1>Focus at your own pace.</h1>
+        <p class="heading-subtitle">Use the Pomodoro technique to keep your work sessions simple and consistent.</p>
+    </div>
+    <a class="outline-button" href="{% url 'session_history' %}">View session history</a>
+</section>
+
+
+<section class="stats-grid" aria-label="Pomodoro statistics">
+    <article class="stat-card">
+        <div class="stat-icon">◷</div>
+        <div>
+            <span class="stat-label">Total Focus Time</span>
+            <strong class="stat-value">{{ total_time }}</strong>
+        </div>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-icon">✓</div>
+        <div>
+            <span class="stat-label">Sessions Completed</span>
+            <strong class="stat-value">{{ session_count }}</strong>
+        </div>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-icon">♨</div>
+        <div>
+            <span class="stat-label">Active Days</span>
+            <strong class="stat-value">{{ active_days }} days</strong>
+        </div>
+    </article>
+</section>
+
+<section class="workspace-grid">
+    <article class="panel timer-panel">
+        <div class="panel-header">
+            <div>
+                <span class="panel-kicker">Focus timer</span>
+                <h2>Stay focused</h2>
+            </div>
+            <span class="status-pill"><span class="status-dot"></span> Ready</span>
+        </div>
+
+        <!-- ТАЙМЕР ІЗ ДИНАМІЧНИМИ НАЛАШТУВАННЯМИ -->
+        <div class="timer-mode-tabs" role="tablist" aria-label="Timer modes">
+            <button class="tab active" data-time="{{ pomodoro_sec }}" type="button">Pomodoro</button>
+            <button class="tab" data-time="{{ short_break_sec }}" type="button">Short Break</button>
+            <button class="tab" data-time="{{ long_break_sec }}" type="button">Long Break</button>
+        </div>
+
+        <div class="timer-face" id="timer" aria-live="polite">25:00</div>
+        <p class="timer-caption">Focus session</p>
+
+        <div class="timer-actions">
+            <button id="startPause" class="primary-button" type="button">Start</button>
+            <button id="reset" class="secondary-button" type="button">Reset</button>
+        </div>
+    </article>
+
+    <article class="panel chart-panel">
+        <div class="panel-header">
+            <div>
+                <span class="panel-kicker">Weekly overview</span>
+                <h2>Focus Time by Day</h2>
+            </div>
+            <select id="week-selector" class="select-button" style="cursor: pointer;">
+                <option value="this_week">This Week</option>
+                <option value="last_week">Last Week</option>
+            </select>
+        </div>
+
+        <div class="chart-wrap" aria-label="Focus time chart for the week">
+            <div class="chart-y-axis">
+                <span>4h</span>
+                <span>3h</span>
+                <span>2h</span>
+                <span>1h</span>
+                <span>0</span>
+            </div>
+            <div class="chart-area">
+                <div class="chart-grid-lines" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <!-- Контейнер очищено для рендеру через JS -->
+                <div class="chart-bars" id="dynamic-chart-bars">
+                    <!-- Сюди JS вставлятиме колонки графіка -->
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+
+<!-- ДИНАМІЧНА ІСТОРІЯ СЕСІЙ -->
+<section class="panel sessions-panel">
+    <div class="panel-header">
+        <div>
+            <span class="panel-kicker">Latest activity</span>
+            <h2>Recent Sessions</h2>
+        </div>
+        <a class="text-link" href="{% url 'session_history' %}">See all</a>
+    </div>
+
+    <div class="session-list">
+        {% for session in recent_sessions %}
+        <div class="session-row">
+            <div class="session-type">
+                <span class="session-emoji {% if session.session_type == 'pomodoro' %}tomato{% else %}cup{% endif %}">
+                    {% if session.session_type == 'pomodoro' %}🍅{% else %}☕{% endif %}
+                </span>
+                <strong>{{ session.session_type|title }}</strong>
+            </div>
+            <span>{{ session.created_at|date:"M d, Y" }}</span>
+            <span>{{ session.created_at|time:"h:i A" }}</span>
+            <strong>{{ session.duration_minutes }} min</strong>
+        </div>
+        {% empty %}
+        <div class="session-row" style="justify-content: center;">
+            <p>No recent sessions.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const IS_GUEST = {% if user.is_authenticated %}false{% else %}true{% endif %};
+    const AUTO_START = {% if auto_start %}true{% else %}false{% endif %};
+    const SOUND_ENABLED = {% if sound_enabled %}true{% else %}false{% endif %};
+</script>
+<script src="/static/js/timer.js"></script>
+{% endblock %}
